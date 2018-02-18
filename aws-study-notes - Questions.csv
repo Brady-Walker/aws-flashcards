@@ -1,0 +1,34 @@
+Question,Answer,Tags
+What is a region?,"A geographical area (e.g.: Sydney, London, US-East)",10k feet
+What is an availability zone?,A datacenter within a region,10k feet
+What is an edge location?,"Geographical endpoints for aws, used for caching content",10k feet
+How many availability zones in a Region?,2 or more,10k feet
+"What's the difference between users, groups, roles, and policies?","Users are end users, groups are collections of users under one set of permissions, roles are assigned to aws resources such as an ec2 instance, policies are a document that defines one or more permissions (they can be applied to users, groups, and roles)",IAM
+What language are policy documents written in?,JSON,IAM
+What does it mean that IAM is universal?,It does not apply to regions,IAM
+What is the root account?,The default account created when setting up aws. Has complete admin access,IAM
+What permissions do new users have?,None,IAM
+"As a user, when are you assigned an access key ID and a secret acccess key?",A new user is assigned these when created,IAM
+What can you use the Access Key ID & Secret Access Key for?,To access AWS via the API's and command line tool,IAM
+How can I find my Access Key ID & Secret Access key if I've lost them?,You have to regenerate them,IAM
+What are two big security settings you can enable in IAM?,MFA on root account and the creation of password rotation policies,IAM
+What is the difference between power user access and administrator access?,Power users do not have access to modify groups or users in IAM,IAM
+Describe data consistency in S3,Read after write consistency for PUTS of new objects (immediate). Eventual consistency for overwrite PUTS and Deletes (eventual).,S3
+What does it mean that S3 is object based (What properties does an S3 object have)?,"Objects in S3 have a key, value, version ID, metadata, and subresources like access control lists and torrent",S3
+What is S3's availability and SLA?,99.99% availability and 99. 11x9's durability (Eleven nines),S3
+What are the storage tiers of S3 and their respective availability and durability?,"S3 - 99% available with 11 9's of durability
+S3 IA (Infrequently Accessed) - lower fee for data that need quick but infrequent access
+Reduced Redundancy Storage - 99.99% durability and storage
+Glacier - Very cheap but it takes 3-5 hours to restore the data",S3
+How much data can you store on S3?,Unlimited,S3
+How are you charged in S3?,"Charged by storage, requests, storage management pricing (tags), data transfer pricing, transfer acceleration ",S3
+What are the file size limits in S3?,0 bytes to 5TB,S3
+What does an S3 url look like?,S3 url: https://s3-region-name.amazonaws.com/mybucketname,S3
+How unique do S3 namespaces need to be?,Namespaces need to be unique globally.,S3
+What status code does S3 return with a successful file upload?,Http status code: 200,S3
+"In CloudFront, what are the differences between an edge location, an origin, and a distribution?",Edge locations are the physical locations where the content will be cached. The origin is the origin of the files that the CDN will distribute. The distribution is the name given to the CDN that consists of a collection of edge cases,CloudFront
+"In CloudFront, what can be an origin?","An S3 bucket, an EC2 instance, an Elastic Load Balancer, Route53, or a non aws server.",CloudFront
+"In CloudFront, what are the two types of distributions?",Web Distribution (typically for websites) and RTMP (used for media streaming),CloudFront
+Are Edge locations read only?,No you can put an object on to them and they'll be replicated back to the origin.,CloudFront
+Objects are cached for how long?,The TTL (Time To LIve),CloudFront
+Can you clear cached objects before the TTL (Time To Live)?,Yes but you will be charged,CloudFront
