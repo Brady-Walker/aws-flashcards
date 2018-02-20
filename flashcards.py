@@ -52,7 +52,7 @@ qLength = len(questions)
 i = 0
 try:
   while i < len(questions):
-    print(Style.DIM + Fore.LIGHTBLACK_EX + '(' + str(i+1) + '/' + str(qLength) + ')' + ' ' + ', '.join(questions[i]['Tags']))
+    print(Style.DIM + Fore.WHITE + '(' + str(i+1) + '/' + str(qLength) + ')' + ' ' + ', '.join(questions[i]['Tags']))
     input(Style.NORMAL + Fore.CYAN + questions[i]['Question'])
     input(Fore.GREEN + questions[i]['Answer'] + "\n")
     i+=1
