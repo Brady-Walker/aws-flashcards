@@ -116,3 +116,47 @@ What are some common events used to trigger AWS Lambda?,"- Changes to data in an
 - Changes to data in a DynamoDB table
 - HTTP requests using API Gateway
 - API calls made using AWS SDKs",EC2
+"Upon creation, do Elastic Load Balancers have a pre-defined IPv4 address?",No. You resolve to them using a DNS name,Route53
+"Concerning Elastic Load Balancers, what is the difference between an Alias recod and a CNAME?","- Alias records allow you to resolve a naked domain name to an Elastic Load Balancer's DNS.
+- When resolving, you will be charged for using a CNAME but will not for using an Alias
+- Given the choice, always use an Alias record",Route53
+"Describe the differences between the following routing policies:
+- Simple
+- Weighted
+- Latency
+- Failover
+- Geolocation","- Simple: stupid round robin (take turns)
+- Weighted: Percentage based (10% here 90% there)
+- Latency: Based on server response time to user
+- Failover: Upon failing a health check send traffice elsewhere
+- Geolocation: Send traffic based on user location",Route53
+"In Amazon Relational Database Service (RDS), list the 6 relational databases available for use.","- SQL
+- MySQL
+- PostgreSQL
+- Oracle
+- Aurora
+- MariaDB",AWS Databases
+What is the difference between Online Transaction Processing (OLTP) and Online Analytics Processing (OLAP) and what service fits each type of query?,"- OLTP would use RDS and very transactional queries (give me the name, date, and address for this shipment)
+- OLAP would use Redshift and the query would involve much more data processing (give me the net profit for a specific product sold in multiple regions)",AWS Databases
+What is the name of Amazon's No SQL database?,DynamoDB,AWS Databases
+What two caching systems/databases are available in AWS Elasticache?,"- Memcached
+- Redis",AWS Databases
+"In RDS, what is the difference between Multi-AZ and read replicas?","Multi-AZ: Your RDS instance is synchronously replicated to a copy in a different availability zone (us-east-1 and us-east-2) and if one goes down, the other will automagically take over
+Read Replica: If you're doing enough reads from your DB to bottleneck your application you can create replicas to read from and writing will propogate back to the original",AWS Databases
+Describe Aurora's strategy for availability and scaling,"- 2 copies of your data are contained in each AZ, with a minimum of 3 AZ's, meaning 6 copies of your data
+- Aurora write availability: Is designed to work while losing up to two copies of data
+- Aurora read availability: Is designed to work while losing up to three copies of data
+- Aurora storage is self healing: data blocks and diskas are continuously scanned for errors and repaired automatically",AWS Databases
+What are the two types of Aurora replicas available and their maximum quantity?,"Aurora Replicas: max 15
+MySQL Read Replicas: max 5",AWS Databases
+What is the major difference between scaling RDS and DynamoDB?,"DynamoDB offers ""push button"" scaling without any downtime.
+RDS would need a bigger instance size or to have read replicas added (would need a maintenance window)",AWS Databases
+DynamoDB uses what type of storage spread across how many data centres?,Stored on SSD across 3 geographically distinct data centers,AWS Databases
+"In DynamoDB, what is the difference between Eventual Consistent Reads and Strongly Consistent Reads?","Eventual Consistent Reads is the default setting.
+If you need to be able to read changes to the data within one second of writing, you need Strongly Consistent Reads.",AWS Databases
+What are the two types of Redshift configurations?,"Single Node: Small-Medium business with 160GB of storage
+Multi-Node:
+ - Leader Node (manage client connections and receives queries)
+ - Compute Node (Store data and perform queries) (Max. 128 compute nodes)",AWS Databases
+In what situations would you use Elasticache over Read Replicas?,"Elasticache would be more useful for DB queries that are being called repeatedly.
+Read replicas would be more useful for DB's that are being queried many times but not necessarily with the same queries",AWS Databases
