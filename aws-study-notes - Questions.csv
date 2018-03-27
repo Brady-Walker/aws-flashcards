@@ -15,8 +15,8 @@ What are two big security settings you can enable in IAM?,MFA on root account an
 What is the difference between power user access and administrator access?,Power users do not have access to modify groups or users in IAM,IAM
 Describe data consistency in S3,Read after write consistency for PUTS of new objects (immediate). Eventual consistency for overwrite PUTS and Deletes (eventual).,S3
 What does it mean that S3 is object based (What properties does an S3 object have)?,"Objects in S3 have a key, value, version ID, metadata, and subresources like access control lists and torrent",S3
-What is S3's availability and SLA?,99.99% availability and 99. 11x9's durability (Eleven nines),S3
-What are the storage tiers of S3 and their respective availability and durability?,"S3 - 99% available with 11 9's of durability
+What is S3's availability and SLA?,99.99% availability and 99. 9x9's durability (Nine nines),S3
+What are the storage tiers of S3 and their respective availability and durability?,"S3 - 99% available with 9 9's of durability
 S3 IA (Infrequently Accessed) - lower fee for data that need quick but infrequent access
 Reduced Redundancy Storage - 99.99% durability and storage
 Glacier - Very cheap but it takes 3-5 hours to restore the data",S3
@@ -275,3 +275,45 @@ What does it mean to Decouple your Components when architecting?,"Build componen
 What are the three ways to implement elasticity in AWS architecture?,"1. Proactive Cyclic Scaling - Periodic scaling that occurs at fixed intervals (e.g. pay days, weekends)
 2. Proactive Event-based Scaling - Scaling when expecting big surges (e.g. Black Friday, new product launch)
 3. Autoscaling based on demand - Using a monitoring service, your system can send triggers to scale",AWS
+Can I delete a snapshot of an EBS Volume that is used as the root device of a registered AMI?,No they are virtualized disks. All memory is scrubbed (set to zero) by the hypervisor when it becomes unallocated to a guest.,EC2
+What is a placement group?,"You can launch or start instances in a placement group, which determines how instances are placed on underlying hardware. When you create a placement group, you specify one of the following strategies for the group:
+Cluster—clusters instances into a low-latency group in a single Availability Zone
+Spread—spreads instances across underlying hardware
+(There is no charge for creating a placement group)",EC2
+What are the 4 main metrics available by default for EC2 in CloudWatch?,"1. CPU metrics
+2. Disk I/O metrics
+3. Network metrics
+4. Status Check metrics",CloudWatch
+"What are SOA, NS, A, CNAME, and Alias records?","SOA - Start of Authority - Basic DNS Info about domain
+NS - Name Server - the domain name of the server (ns1.example.com)
+A - the IPv4 address (192.0.2.235)
+CNAME - Canonical Name - Fully qualified domain name (www.example.com)
+Alias - Like CNAME but can point directly to AWS resources like ELB, cloudfront, elastic beanstalk, s3 bucket static website",Route53
+What are the main differences btween CNAME and Alias records?,"Alias records allow you to resolve naked domain names to AWS resources directly.
+No charge for alias records.
+No TTL required for alias records.",Route53
+If you are using Amazon RDS Provisioned IOPS storage with MySQL and Oracle database engines what is the maximum size RDS volume you can have by default?,6TB,AWS Databases
+What happens to the I/O operations while you take a database snapshot?,I/O operations to the database are suspended for the duration of the snapshot,AWS Databases
+Security groups act like a firewall at the instance level whereas ___ are an additional layer of security that act at the subnet level,Network ACLs,VPC
+How many internet gateways can I attach to my custom VPC,1,VPC
+How many VPC's am I allowed in each AWS Region by default?,5,VPC
+"In RDS, what is the maximum value I can set for my backup retention period?",35 days,AWS Databases
+"Automated backups are enabled by default for a new DB Instance, true or false?",TRUE,AWS Databases
+Amazon RDS does not currently support increasing storage on a ____ Db instance,SQL Server,AWS Databases
+What is the underlying hypervisor in EC2?,Xen,EC2
+How many copies of my data does RDS - Aurora store by default?,6,AWS Databases
+What is the maximum response time for a Business Level Premium Support Case?,1 hour,AWS
+What function of an AWS VPC is stateless?,Network Access Control Lists,VPC
+EMR allows you root access (ie you can login using SSH)?,TRUE,Application Services
+You have started a new role as a solutions architect for an architectural firm that designs large sky scrapers in the Middle East. Your company hosts large volumes of data and has about 250Tb of data on internal servers. They have decided to store this data on S3 due to the redundancy offered by it. The company currently has a telecoms line of 2Mbps connecting their head office to the internet. What method should they use to import this data on to S3 in the fastest manner possible.,AWS Import/Export,Application Services
+Explain RAID 0 vs RAID 1,"Raid 0 = Higher throughput
+Raid 1 = Increased Redundancy",EC2
+"Using SAML (Security Assertion Markup Language 2.0) you can give your federated users single sign-on (SSO) access to the AWS Management Console, true or false?",TRUE,IAM
+"It is possible to transfer a reserved instance from one Availability Zone to another, true or false?",TRUE,EC2
+Amazon's Redshift uses which block size for its columnar storage?,1MB,AWS Databases
+How do you design SQS if you need to prioritize some items in the queue?,Use multiple queues if priority is necessary,Application Services
+By definition a public subnet within a VPC is one that;,In its routing table has at least one route that uses an Internet Gateway,VPC
+What is the soft limit of VPCs per region?,20,VPC
+"An EC2 instance in a public subnet is only publicly accessible if it has a public ip address or is behind an elastic load balancer, true or false?",TRUE,EC2
+"Restoring a DB backup will retain the original DNS address, true or false?","False, a new DB from a backup will have a new DNS address",AWS Databases
+"When provisioning a loadbalancer into your custom vpc, how many availability zones must be specified? Do they need to be private or public?",It needs to be placed in at least 2 public subnets,EC2
