@@ -313,7 +313,13 @@ Raid 1 = Increased Redundancy",EC2
 Amazon's Redshift uses which block size for its columnar storage?,1MB,AWS Databases
 How do you design SQS if you need to prioritize some items in the queue?,Use multiple queues if priority is necessary,Application Services
 By definition a public subnet within a VPC is one that;,In its routing table has at least one route that uses an Internet Gateway,VPC
-What is the soft limit of VPCs per region?,20,VPC
 "An EC2 instance in a public subnet is only publicly accessible if it has a public ip address or is behind an elastic load balancer, true or false?",TRUE,EC2
 "Restoring a DB backup will retain the original DNS address, true or false?","False, a new DB from a backup will have a new DNS address",AWS Databases
 "When provisioning a loadbalancer into your custom vpc, how many availability zones must be specified? Do they need to be private or public?",It needs to be placed in at least 2 public subnets,EC2
+What are the three steps in order that autoscaling will use to decide which instance to spin down?,"1. Select the availabilty zone with the most instances
+2. Select the instances with the oldest launch configuration
+3. Select the instance closest to the next billing hour
+Optional 4. Select instance at random (if none of the above singled out an instance)",EC2
+"If you have configured a VPC to use Dedicated Hosting, what must you do if you wish to change the hosting back to default?",You must re-create the VPC,VPC
+"AWS DNS allows requests originating from outside your VPC by default, true or false?",FALSE,VPC
+"What is the maximum item size in DynamoDB, and is that for name and value each or together?",400KB for name and value combined,AWS Databases
