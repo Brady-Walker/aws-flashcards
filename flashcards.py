@@ -2,6 +2,7 @@
 
 from random import shuffle
 import os
+import glob
 from sys import platform
 # to ask questions
 import inquirer
@@ -16,8 +17,32 @@ if platform == 'win32':
 else:
   os.system('clear')
 
+# Read in potential flashcard files
+flashcards = (glob.glob("./flashcards/*.csv"))
+flashcardDict = []
+flashcardNames = []
+
+for flashcard in flashcards:
+  strSplit = flashcard.split("/")
+  fileName = strSplit[len(strSplit) - 1]
+  flashcard = { "name": fileName, "path": flashcard}
+  flashcardDict.append(flashcard)
+  flashcardNames.append(fileName)
+
+# Choose between flashcard files
+print("\n Hello! Use arrow keys to select a list of flashcards and press enter to continue.\n")
+pickFlashcardsQuestion = [inquirer.List(
+    'Flashcards',
+    message="What would you like to study?",
+    choices=flashcardNames,
+)]
+selectedFlashcards = inquirer.prompt(pickFlashcardsQuestion)['Flashcards']  # returns a dict
+print(selectedFlashcards)
+
 # Read in questions from csv
-file = csv.DictReader(open('aws-study-notes - Questions.csv'))
+# file = csv.DictReader(open('./flashcards/aws-study-notes - Questions.csv'))
+filePathIndex = next((index for (index, d) in enumerate(flashcardDict) if d["name"] == selectedFlashcards), None)
+file = csv.DictReader(open(flashcardDict[filePathIndex]["path"]))
 questions = []
 for question in file:
   questions.append(question)
@@ -33,7 +58,7 @@ for item in questions:
 tags = list(set(tags))
 
 # Beginning of user interface
-print("\n Hello! Press space to select categories and press enter to continue.\nContinue pressing enter to cycle through the flashcards.\n")
+print("\n Press space to select categories and press enter to continue.\nContinue pressing enter to cycle through the flashcards.\n")
 
 pickTagsQuestion = [inquirer.Checkbox(
     'Tags',

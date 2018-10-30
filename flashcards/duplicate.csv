@@ -1,0 +1,325 @@
+Question,Answer,Tags
+What is a region?,"A geographical area (e.g.: Sydney, London, US-East)",AWS
+What is an availability zone?,A datacenter within a region,AWS
+What is an edge location?,"Geographical endpoints for aws, used for caching content",AWS
+How many availability zones in a Region?,2 or more,AWS
+"What's the difference between users, groups, roles, and policies?","Users are end users, groups are collections of users under one set of permissions, roles are assigned to aws resources such as an ec2 instance, policies are a document that defines one or more permissions (they can be applied to users, groups, and roles)",IAM
+What language are policy documents written in?,JSON,IAM
+What does it mean that IAM is universal?,It does not apply to regions,IAM
+What is the root account?,The default account created when setting up aws. Has complete admin access,IAM
+What permissions do new users have?,None,IAM
+"As a user, when are you assigned an access key ID and a secret acccess key?",A new user is assigned these when created,IAM
+What can you use the Access Key ID & Secret Access Key for?,To access AWS via the API's and command line tool,IAM
+How can I find my Access Key ID & Secret Access key if I've lost them?,You have to regenerate them,IAM
+What are two big security settings you can enable in IAM?,MFA on root account and the creation of password rotation policies,IAM
+What is the difference between power user access and administrator access?,Power users do not have access to modify groups or users in IAM,IAM
+Describe data consistency in S3,Read after write consistency for PUTS of new objects (immediate). Eventual consistency for overwrite PUTS and Deletes (eventual).,S3
+What does it mean that S3 is object based (What properties does an S3 object have)?,"Objects in S3 have a key, value, version ID, metadata, and subresources like access control lists and torrent",S3
+What is S3's availability and SLA?,99.99% availability and 99. 9x9's durability (Nine nines),S3
+What are the storage tiers of S3 and their respective availability and durability?,"S3 - 99% available with 9 9's of durability
+S3 IA (Infrequently Accessed) - lower fee for data that need quick but infrequent access
+Reduced Redundancy Storage - 99.99% durability and storage
+Glacier - Very cheap but it takes 3-5 hours to restore the data",S3
+How much data can you store on S3?,Unlimited,S3
+How are you charged in S3?,"Charged by storage, requests, storage management pricing (tags), data transfer pricing, transfer acceleration ",S3
+What are the file size limits in S3?,0 bytes to 5TB,S3
+What does an S3 url look like?,S3 url: https://s3-region-name.amazonaws.com/mybucketname,S3
+How unique do S3 namespaces need to be?,Namespaces need to be unique globally.,S3
+What status code does S3 return with a successful file upload?,Http status code: 200,S3
+"In CloudFront, what are the differences between an edge location, an origin, and a distribution?",Edge locations are the physical locations where the content will be cached. The origin is the origin of the files that the CDN will distribute. The distribution is the name given to the CDN that consists of a collection of edge cases,"CloudFront, S3"
+"In CloudFront, what can be an origin?","An S3 bucket, an EC2 instance, an Elastic Load Balancer, Route53, or a non aws server.","CloudFront, S3"
+"In CloudFront, what are the two types of distributions?",Web Distribution (typically for websites) and RTMP (used for media streaming),"CloudFront, S3"
+Are Edge locations read only?,No you can put an object on to them and they'll be replicated back to the origin.,"CloudFront, S3"
+Objects are cached for how long?,The TTL (Time To LIve),"CloudFront, S3"
+Can you clear cached objects before the TTL (Time To Live)?,Yes but you will be charged,"CloudFront, S3"
+By default are new buckets private or public?,Private,S3
+What are two ways to controll access to an S3 bucket?,Bucket policies and access control lists,S3
+How can I track requests made to buckets in S3?,Configure the bucket to create access logs for all requests.,S3
+What are the types of encryption possible on S3?,"In transit:
+ - SSL/TLS
+At Rest:
+ - Sever Side Encryption
+    - S3 Managed Keys - SSE-S3
+    - AWS Key Management Service - SSE-KMS
+    - Sever Side Encryption with Customer Provided Keys - SSE-C
+ - Client Side Encryption",S3
+What is the difference betweena file gateway and a volume gateway?,File gateways are for flat files stored directly on S3. Volume gateways are block based.,S3
+What are the two types of volumes for a Volume Gateway?,"Stored Volumes - Entire dataset is stored on site and is async backed up to S3.
+Cached Volumes - Entire dataset is stored on S3 and most frequently accessed is cached on site.",S3
+What is Gateway Virtual Tape Library? (VTL),"Used for backup and uses popular backup apps like NetBackup, Backup Exec, and Veeam",S3
+What is Snowball? And what is the legacy term for it?,A similar legacy service was Import Export. Snowball is a way to physically transfer large amounts of data to/from S3 using an appliance (avoiding the internet) and can cost as little as 1/5th of the cost of transferring with high speed internet. (Snowball edge & Snowmobile),S3
+How do you use S3 transfer acceleration and how does it work?,"Instead of uploading directly to an S3 bucket, transfer acceleration provides a distinct URL (with the word accelerate in it) that will upload the file to S3 and utilise CloudFront for distribution.",S3
+Cross Region Replication requires what to be enabled on the source bucket?,Versioning,S3
+What feature can help provide security around deletes on S3?,MFA Delete capability (when versioning is enabled),S3
+How can you disable versioning on S3?,"You can not disable versioning, only suspend it.",S3
+How can S3 be used to host a website?,"You can create a serverless, inexpensive website using S3 that can only host static content.",S3
+What is the major benefit of multipart upload in S3?,"It is much faster as it breaks up the files, transfers them, and reassembles them in S3.",S3
+"What is the difference between On Demand, Reserved, Spot, and Dedicated Hosts instances?","On Demand - Pay a fixed rate by the hour or second with no commitment
+Reserved - Provide you with a capacity reservation (with a significant discount) usually for 1 or 3 year terms
+Spot - Allows you to bid a price for instance capacity, providing greater saving if you have flexible start/end times
+Dedicated Hosts - Physically separate EC2 servers for dedicated use. Good for server-bound software licenses.",EC2
+What are some common instance types and what are they used for?,"D2 - Dense Storage (Fileservers/Data Warehouse)
+R4 - Memory Optimized (Memory Intensive Apps/DBs)
+M4 - General Purpose (App Servers)
+C4 - Compute Optimized (CPU Intensive Apps/DBs)
+G2 - Graphics Intensive (Video Encoding/3D App Streaming)
+I2 - High Speed Storage (NoSQL DBs, Data Warehousing)
+F1 - Field Programmable Gate Array (Hardware acceleration for your code)
+T2 - Lowest Cost, General Purpose (Web Servers/Small DBs)
+P2 - Graphics/General Purpose GPU (Machine Learning, Crypto mining)
+X1 - Memory Optimized (SAP HANA/Apache Spark)",EC2
+How is payment settled for spot instances?,"If you terminate it, you pay for the hour.
+If AQS terminates it, you get the hour in which is was terminated for free",EC2
+What are the 4(5) types of EBS?,"SSD, General Purpose - GP2 - Up to 10,000 IOPS
+SSD, Provisioned IOPS 0- IO1 - More than 10,000 IOPS
+HDD, Throughput Optimized - ST1 - Frequently accessed workloads (big data, logs)
+HDD, Cold - SC1 - less frequently accessed data (file server)
+HDD, Magnetic - Standard - cheap, infrequently accessed data (is bootable)",EC2
+Can you mount 1 EBS Volume to multiple EC2 instances?,"No, you should use EFS",EC2
+Is termination protection on by default?,"No, you must turn it on",EC2
+"By default on an EBS backed instance, what will happen to the root EBS volume when the instance is terminated?",The root EBS volume will be deleted,EC2
+Can Root Volumes be encrypted by default? What about additional volumes?,"No, you need a third party tool to encrypt the root volume. Additonal volumes can be encrypted by default.",EC2
+What is a volume in reference to EBS?,Basically a virtual Hard Disk,EC2
+What is a snapshot and where is it stored?,Snapshots are point-in-time copies of Volumes that are stored in S3,EC2
+How are snapshots stored on S3?,"Snapshots are saved incrementally, so the first may take a while but additional snapshots only update blocks that have been changed since the last snapshot",EC2
+Are snapshots of encrypted volumes encrypted automatically?,Yes and restoring the snapshot will create an encrypted volume,EC2
+What criteria determines if you can share a volume?,You can only share if the volume is not encrypted. You may then share to other AWS accounts or make the volume public.,EC2
+Do you need to stop an instance if you are trying to create a snapshot of that instance's root EBS volume?,Yes,EC2
+Describe the differences between EBS and Instance Store volumes (What happens upon termination of an instance? On reboot?),"Instance stores are sometimes called Ephemeral Storage. They cannot be stopped and if the host fails, the underlying data will be lost. EBS can be stopped while persisting the data.
+Both can be rebooted without losing data.
+If used as ROOT volumes, by default, either type will be deleted on termination of the instance, however EBS volumes will have an option to keep the root device volume.",EC2
+What are the two steps when taking a snapshot of a RAID Array? What are the three choices you have for the second step?,"1. Stop the application from writing to disk.
+2. Flush all caches to the disk
+
+2a. Freeze the file system
+2b. Unmount the RAID Array
+2c. Shut down the associated EC2 Instance (easiest option)",EC2
+What is the biggest restriction on AMI sharing?,"AMIs are regional and can only be launched from the region in which it is stored. You can, however, copy AMIs to other regions using the AWS CLI or API",EC2
+In CloudWatch what are the monitoring intervals for standard vs detailed monitoring?,"Standard = 5 minutes
+Detailed = 1 minute",EC2
+What is the difference between CloudWatch and CloudTrail?,"CloudWatch =  performance monitoring
+CloudTrail = Auditing",EC2
+What are the primary features in CloudWatch?,"1. Dashboards
+2. Alarms
+3. Events
+4. Logs",EC2
+Can roles be assigned to an EC2 instance after its been provisioned?,Yes,EC2
+Are roles restricted to regions?,"No, they are universal",EC2
+How do you get meta data from a running instance?,Call http://169.254.169.254/latest/meta-data/ from within the instance,EC2
+What are some major EFS features?,"- Supports the Network File System version 4 (NFSv4) protocol
+- You only pay for the storage you use (no pre-provisioning)
+- Can scale up to petabytes
+- Can support thousands of concurrent NFS connections
+- Data is stored across multiple AZ's with in a region
+- Read after write consistency (like S3)",EC2
+What are some common events used to trigger AWS Lambda?,"- Changes to data in an S3 bucket
+- Changes to data in a DynamoDB table
+- HTTP requests using API Gateway
+- API calls made using AWS SDKs",EC2
+"Upon creation, do Elastic Load Balancers have a pre-defined IPv4 address?",No. You resolve to them using a DNS name,Route53
+"Concerning Elastic Load Balancers, what is the difference between an Alias recod and a CNAME?","- Alias records allow you to resolve a naked domain name to an Elastic Load Balancer's DNS.
+- When resolving, you will be charged for using a CNAME but will not for using an Alias
+- Given the choice, always use an Alias record",Route53
+"Describe the differences between the following routing policies:
+- Simple
+- Weighted
+- Latency
+- Failover
+- Geolocation","- Simple: stupid round robin (take turns)
+- Weighted: Percentage based (10% here 90% there)
+- Latency: Based on server response time to user
+- Failover: Upon failing a health check send traffice elsewhere
+- Geolocation: Send traffic based on user location",Route53
+"In Amazon Relational Database Service (RDS), list the 6 relational databases available for use.","- SQL
+- MySQL
+- PostgreSQL
+- Oracle
+- Aurora
+- MariaDB",AWS Databases
+What is the difference between Online Transaction Processing (OLTP) and Online Analytics Processing (OLAP) and what service fits each type of query?,"- OLTP would use RDS and very transactional queries (give me the name, date, and address for this shipment)
+- OLAP would use Redshift and the query would involve much more data processing (give me the net profit for a specific product sold in multiple regions)",AWS Databases
+What is the name of Amazon's No SQL database?,DynamoDB,AWS Databases
+What two caching systems/databases are available in AWS Elasticache?,"- Memcached
+- Redis",AWS Databases
+"In RDS, what is the difference between Multi-AZ and read replicas?","Multi-AZ: Your RDS instance is synchronously replicated to a copy in a different availability zone (us-east-1 and us-east-2) and if one goes down, the other will automagically take over
+Read Replica: If you're doing enough reads from your DB to bottleneck your application you can create replicas to read from and writing will propogate back to the original",AWS Databases
+Describe Aurora's strategy for availability and scaling,"- 2 copies of your data are contained in each AZ, with a minimum of 3 AZ's, meaning 6 copies of your data
+- Aurora write availability: Is designed to work while losing up to two copies of data
+- Aurora read availability: Is designed to work while losing up to three copies of data
+- Aurora storage is self healing: data blocks and diskas are continuously scanned for errors and repaired automatically",AWS Databases
+What are the two types of Aurora replicas available and their maximum quantity?,"Aurora Replicas: max 15
+MySQL Read Replicas: max 5",AWS Databases
+What is the major difference between scaling RDS and DynamoDB?,"DynamoDB offers ""push button"" scaling without any downtime.
+RDS would need a bigger instance size or to have read replicas added (would need a maintenance window)",AWS Databases
+DynamoDB uses what type of storage spread across how many data centres?,Stored on SSD across 3 geographically distinct data centers,AWS Databases
+"In DynamoDB, what is the difference between Eventual Consistent Reads and Strongly Consistent Reads?","Eventual Consistent Reads is the default setting.
+If you need to be able to read changes to the data within one second of writing, you need Strongly Consistent Reads.",AWS Databases
+What are the two types of Redshift configurations?,"Single Node: Small-Medium business with 160GB of storage
+Multi-Node:
+ - Leader Node (manage client connections and receives queries)
+ - Compute Node (Store data and perform queries) (Max. 128 compute nodes)",AWS Databases
+In what situations would you use Elasticache over Read Replicas?,"Elasticache would be more useful for DB queries that are being called repeatedly.
+Read replicas would be more useful for DB's that are being queried many times but not necessarily with the same queries",AWS Databases
+How many availability zones can a subnet be a part of?,Just one.,VPC
+Does VPC support transitive peering?,No,VPC
+Why should you disable Source/Destination check when creating a NAT instance?,"This means that the instance must be the source or destination of any traffic it sends or receives. However, a NAT instance must be able to send and receive traffic when the source or destination is not itself. ",VPC
+Do NAT instances go in private or public subnets?,Public,VPC
+"True or false, in order to use your NAT instance correctly, there must be a route out of the private subnet pointed to the NAT instance.",TRUE,VPC
+"If you are bottlenecked on your NAT instance, what should you do?",Increase the NAT instance size,VPC
+"True or false, NAT instances are behind a security group.",TRUE,VPC
+How would you create high availability for a NAT instance?,"Autoscaling groups, multiple subnets in different AZs, and a script to automate failover.",VPC
+What are some of the differences with a NAT Gateway compared to a NAT Instance?,"- Preferred by enterprise
+- Scale automatically up to 10Gbps
+- No need to patch
+- Not associated with security groups
+- Automatically assigned public IP address
+- No need to disable source/destination checks
+- More secure than a NAT instance",VPC
+What is the default behavior for NACLS when creating a VPC?,"A VPC automatically comes with a NACL, and by default it allows all outbound and inbound traffic.",VPC
+What is the default behavior of a new NACL?,Each custom NACL denies all inbound and outbound traffic until you add rules.,VPC
+"Each subnet in a VPC must be associated to a NACL. If you don't explicity associate a subnet, what is the default behavior?",The subnet will be associated with the default NACL.,VPC
+How many NACLS can be associated with a subnet and vice versa?,A NACL can be associated to many subnets but a subnet can only be associated to one NACL.,VPC
+How are NACL rules evaluated?,"In order, starting with the lowest numbered rule.",VPC
+What does it mean for NACLs to be stateless? ,"NACLs have separate inbound and outbound rules, which can both allow or deny traffice in either direction. Responses to allowed inbound traffic are subject to outbound traffice rules and vice versa.",VPC
+Can you block IP addresses using NACLs or security groups?,NACLs,VPC
+What is the minimum number of public subnets required to deploy an application load balancer?,2,VPC
+What are a few common stipulations when working with VPC Flow Logs?,"- You cannot enable flow logs for peered VPCs unless that VPC is in your account
+- You cannot tag a flow log
+- After you've created a flow log, you cannot change the configuration",VPC
+What traffic is not monitored in a VPC Flow Log?,"- Traffic from the Amazon DNS server
+- Windows traffic from Amazon Windows license activation
+- Traffice to/from 169.254.169.254 for instance metadata
+- DHCP traffic
+- Traffic to the reserved IP address for the default VPC router",VPC
+What is a VPC endpoint?,"A VPC endpoint enables you to privately connect your VPC to supported AWS services without the use of an internet gateway, NAT device, VPC or aws direct connect connection.",VPC
+What is Amazon SQS?,A web service that gives you access to a message queue that can be used to store messages while waiting for a computer to process them,Application Services
+Is SQS pull or push based?,Pull. The clients/computers that work with messages in the queue will have to poll for questions.,Application Services
+"In SQS, what is the message size?",256KB,Application Services
+"In SQS, what is the minimum, maximum, and default time that messages can live in the queue?","Min: 1 minute
+Max: 14 days
+Default: 4 days",Application Services
+"In SQS, what is Visibilty Time Out and what is its maximum value?","The amout of time a message will stay invisble in the queue after a reader picks up the message. If a reader doesn't make a callback saying that the process was completed, the message will become visible in the queue again.
+Max value: 12 hours",Application Services
+"In SQS, what is the difference between short and long polling?","In short polling, SQS will return a response immediately even if the queue is empty. In long polling, SQS will return a response only when there is a message for the receiver or the long poll times out.",Application Services
+In SQS what queue ordering options are there and which is the default?,"Standard is the default and is kinda ordered by time entering the queue.
+FIFO (first in first out) is strictly ordered.",Application Services
+What are some differences between SWF and SQS?,"- SQS has a retention period up to 14 days while SWF can retain up to 1 year.
+- SWF presents task-oriented API where SQS is message-oriented.
+- SWF ensures a task is assigned only once and is never duplicated while SQS may duplicate messages
+- SWF keeps track of tasks and events in an application while SQS is a simple queue that would require a separate implementation of application level tracking.",Application Services
+What are the three SWF Actors?,"1. Workflow Starters - An application that can start a workflow (like an e-commerce website)
+2 Deciders - Controls the flow of activity tasks in a workflow (A task finishes or fails and the decider tells it where to go next)
+3. Activity Workers - Carry out the activity tasks (could be humans)",Application Services
+What are the SNS Subscribers?,"1. HTTP
+2. HTTPS
+3. Email
+4. Email-JSON
+5. SQS
+6. Application
+7. Lambda",Application Services
+What is the major difference between SNS and SQS?,SNS = push and SQS = pull (polling),Application Services
+What is Elastic Transcoder? (and how does it charge your account?),"Media transcoding in the cloud. Convert media files from their original source format in to different formats that can play well on specific devices (with great transcoding presets)
+Charged based on minutes spent transcoding and the resolution",Application Services
+What are the core Kinesis services and what are they used for?,"Kinesis Streams - Data producers push data to kinesis shards who can push out to consumers
+Kinesis Firehose - Producers push data to firehose and lambda pushed data straight to S3
+Kinesis Analytics - Sits on top of streams/firehose and lets you run SQL queries on them and store the results in S3",Application Services
+What are the 6 Advantages of Cloud?,"1. Trade capital for variable expense
+2. Benefit from massive economies of scale
+3. Stop guessing about capacity
+4. Increase speed and agility
+5. Stop spending money running and maintaining data centers
+6. Go Global in minutes",AWS
+What is the shared security responsibility model?,Amazon is responsible for securing the underlying infrastructure and you're responsible for anything you put on the cloud or connect to the cloud.,Security
+What are some common security steps an AWS user should take?,"- Enable MFA
+- Communicate with services using SSL/TLS
+- Log API/user activity with CloudTrail
+- Correctly configure IAM and security groups",Security
+How thorough is the AWS storage decomissioning process?,Compliant with the national guidelines for destroying data and all decomissioned magnetic devices are degaussed and physically destroyed.,Security
+What does AWS provide in the realm of network security?,"- Connections to AWS through HTTP or HTTPS using SSL
+- VPCs with private subnets that can be accessed through VPN",Security
+What is Amazon Corporate Segregation?,"Logically, the AWS production network is segregated from the Amazon Corporate network",Security
+"In regard to network monitoring and protection, what will Amazon automatically protect against?","- DDoS
+- Man in the middle attack (MITM)
+- IP Spoofing
+- Port Scanning
+- Pack Sniffing by other tenants",Security
+Can you do your own vulnerability scan in AWS?,Yes but you have to request in advance,Security
+What is the difference between Access Keys and Key Pairs?,"Access keys are the access key id and secret access key given to a user that allows them to make programmatic requests to AWS.
+Key pairs are associated with an EC2 instance and allow a user to SSH login to the instance.",Security
+What is AWS Trusted Advisor?,"When enabled, it will automatically scan your accounts for common security gaps and performance issues:
+- Open ports
+- Neglecting to create IAM accounts for individual users
+- Allowing public access to S3 buckets
+- Not using CloudTrail
+- not using MFA on your root account",Security
+What is the purpose of the Xen Hypervisor and AWS Firewall and what is their relationship?,The Xen hypervisor isolates different instances running on the same physical machine. The firewall resides within the hypervisor layer between the physical network interface and the virtual interface.,Security
+Do AWS customers have access to raw disk devices on their instance? Also what happens to memory after a customer is done using it?,No they are virtualized disks. All memory is scrubbed (set to zero) by the hypervisor when it becomes unallocated to a guest.,Security
+How does the AWS Guest Operating System work?,"Virtual instances are completely controlled by the customer who have full root access over accounts, applications, and services.
+AWS does not have any access rights to your instances or the guest OS.",Security
+How does the AWS Firewall behave by default?,EC2 provides a complete firewall solution. This mandatory inbound firewall is configured in a default deny-all mode and you must explicity open the ports needed to allow inbound traffic.,Security
+"What type of encryption does AWS offer for their EBS volumes and what restriction do they place in order to ensure efficient, low-latency encryption?","AES-256. Its only available on EC2's more powerful instance types (e.g. M3, C3, R3, G2)",Security
+"For Elastic Load Balancer, what is SSL termination?","Previously, each EC2 instance had to handle the SSL termination and have a certificate installed. Now the load balancer can handle it and still pass the originatin IP address to your servers (whether you're using HTTPS or TCP load balancing)",Security
+What is the essential use of Direct Connect?,"Think of it extending the IP address range of a client's office into a private VPC, providing a direct connection while maintaining public and private network separation.",Security
+"How often does AWS management re-evaluate the strategic business plan, including risk identification?",At least biannually,Security
+Does AWS Security regularly scan their own internet facing service endpoints for vulnerabilities or is this handled by independent security firms?,Both!,Security
+Can customers request permission to conduct scans of their cloud infrastructure?,Yes as long as they are limited to the customer's instances and do not violate the AWS Acceptable Use Policy,Security
+What are the two main use cases for Storage Gateway?,"Gateway-Cached volumes allows you to utilize S3 as your primary data store while keeping a portion of your data cached locally (at your business) for frequently accessed data. 
+Gateway-Stored volumes stores all of your data locally but asynchronously backs up all data to S3",AWS
+What does it mean to design for failure?,"When designing architectures in the cloud, assume things will fail.
+Assume hardware will fail
+Assume outages will occur
+Assume some disaster will strike your application
+Assume you will be slammed with requests some day
+Think about recovery strategy during design which will create a more robust overall system.",AWS
+What does it mean to Decouple your Components when architecting?,"Build components that do not have tight dependencies so that if one component were to die, sleep, or remain busy, the other components are built so as to continue to work as if no failure is happening.",AWS
+What are the three ways to implement elasticity in AWS architecture?,"1. Proactive Cyclic Scaling - Periodic scaling that occurs at fixed intervals (e.g. pay days, weekends)
+2. Proactive Event-based Scaling - Scaling when expecting big surges (e.g. Black Friday, new product launch)
+3. Autoscaling based on demand - Using a monitoring service, your system can send triggers to scale",AWS
+Can I delete a snapshot of an EBS Volume that is used as the root device of a registered AMI?,No they are virtualized disks. All memory is scrubbed (set to zero) by the hypervisor when it becomes unallocated to a guest.,EC2
+What is a placement group?,"You can launch or start instances in a placement group, which determines how instances are placed on underlying hardware. When you create a placement group, you specify one of the following strategies for the group:
+Cluster—clusters instances into a low-latency group in a single Availability Zone
+Spread—spreads instances across underlying hardware
+(There is no charge for creating a placement group)",EC2
+What are the 4 main metrics available by default for EC2 in CloudWatch?,"1. CPU metrics
+2. Disk I/O metrics
+3. Network metrics
+4. Status Check metrics",CloudWatch
+"What are SOA, NS, A, CNAME, and Alias records?","SOA - Start of Authority - Basic DNS Info about domain
+NS - Name Server - the domain name of the server (ns1.example.com)
+A - the IPv4 address (192.0.2.235)
+CNAME - Canonical Name - Fully qualified domain name (www.example.com)
+Alias - Like CNAME but can point directly to AWS resources like ELB, cloudfront, elastic beanstalk, s3 bucket static website",Route53
+What are the main differences btween CNAME and Alias records?,"Alias records allow you to resolve naked domain names to AWS resources directly.
+No charge for alias records.
+No TTL required for alias records.",Route53
+If you are using Amazon RDS Provisioned IOPS storage with MySQL and Oracle database engines what is the maximum size RDS volume you can have by default?,6TB,AWS Databases
+What happens to the I/O operations while you take a database snapshot?,I/O operations to the database are suspended for the duration of the snapshot,AWS Databases
+Security groups act like a firewall at the instance level whereas ___ are an additional layer of security that act at the subnet level,Network ACLs,VPC
+How many internet gateways can I attach to my custom VPC,1,VPC
+How many VPC's am I allowed in each AWS Region by default?,5,VPC
+"In RDS, what is the maximum value I can set for my backup retention period?",35 days,AWS Databases
+"Automated backups are enabled by default for a new DB Instance, true or false?",TRUE,AWS Databases
+Amazon RDS does not currently support increasing storage on a ____ Db instance,SQL Server,AWS Databases
+What is the underlying hypervisor in EC2?,Xen,EC2
+How many copies of my data does RDS - Aurora store by default?,6,AWS Databases
+What is the maximum response time for a Business Level Premium Support Case?,1 hour,AWS
+What function of an AWS VPC is stateless?,Network Access Control Lists,VPC
+EMR allows you root access (ie you can login using SSH)?,TRUE,Application Services
+You have started a new role as a solutions architect for an architectural firm that designs large sky scrapers in the Middle East. Your company hosts large volumes of data and has about 250Tb of data on internal servers. They have decided to store this data on S3 due to the redundancy offered by it. The company currently has a telecoms line of 2Mbps connecting their head office to the internet. What method should they use to import this data on to S3 in the fastest manner possible.,AWS Import/Export,Application Services
+Explain RAID 0 vs RAID 1,"Raid 0 = Higher throughput
+Raid 1 = Increased Redundancy",EC2
+"Using SAML (Security Assertion Markup Language 2.0) you can give your federated users single sign-on (SSO) access to the AWS Management Console, true or false?",TRUE,IAM
+"It is possible to transfer a reserved instance from one Availability Zone to another, true or false?",TRUE,EC2
+Amazon's Redshift uses which block size for its columnar storage?,1MB,AWS Databases
+How do you design SQS if you need to prioritize some items in the queue?,Use multiple queues if priority is necessary,Application Services
+By definition a public subnet within a VPC is one that;,In its routing table has at least one route that uses an Internet Gateway,VPC
+"An EC2 instance in a public subnet is only publicly accessible if it has a public ip address or is behind an elastic load balancer, true or false?",TRUE,EC2
+"Restoring a DB backup will retain the original DNS address, true or false?","False, a new DB from a backup will have a new DNS address",AWS Databases
+"When provisioning a loadbalancer into your custom vpc, how many availability zones must be specified? Do they need to be private or public?",It needs to be placed in at least 2 public subnets,EC2
+What are the three steps in order that autoscaling will use to decide which instance to spin down?,"1. Select the availabilty zone with the most instances
+2. Select the instances with the oldest launch configuration
+3. Select the instance closest to the next billing hour
+Optional 4. Select instance at random (if none of the above singled out an instance)",EC2
+"If you have configured a VPC to use Dedicated Hosting, what must you do if you wish to change the hosting back to default?",You must re-create the VPC,VPC
+"AWS DNS allows requests originating from outside your VPC by default, true or false?",FALSE,VPC
+"What is the maximum item size in DynamoDB, and is that for name and value each or together?",400KB for name and value combined,AWS Databases
