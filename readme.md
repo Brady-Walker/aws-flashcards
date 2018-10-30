@@ -1,6 +1,6 @@
-# AWS Flashcards
+# CSV Flashcards
 
-This is my collection of notes while studying for the AWS Solutions Architect associate exam (2018).
+This is my collection of notes while studying for the AWS Solutions Architect associate exam (2018). Any flashcards can be used if they follow the csv format in the examples included.
 
 Install dependencies with `pip3 install -r requirements.txt`
 
