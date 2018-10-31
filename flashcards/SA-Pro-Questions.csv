@@ -1,0 +1,81 @@
+Question,Answer,Tags
+What do RTO and RPO stand for?,"Recovery Time Objective - The amount of time that it takes for your business to recover from an outage.
+Recovery Point Objective - Maximum period of time in which data might be lost from an IT service due to a major incident.",High Availability & Business Continuity
+What are the four types of disaster recovery models? (List them from high RTO/RPO to low and describe them),"1. Backup and Restore
+2. Pilot Light
+3. Warm Standby
+4. Multi Site",High Availability & Business Continuity
+What are the key AWS backup technologies and what are their key disaster recovery features?,"S3 - 11 9's (9 decimal places of 9's)
+Glacier - Cheap, high durability, slow recovery
+EBS - Point-in-time snapshots
+DynamoDB - Cross region replication
+RDS - snapshot data from one region to another, read replica running in another region
+Redshift - snapshot data to S3 within same region or copy it to another region",High Availability & Business Continuity
+"If Multi-AZ is enabled on your database and you create a read replica, from which AZ will it take a snapshot?",It normally would use the primary DB and cause some downtime. If Multi AZ is enabled though it will take a snapshot of the secondary DB.,High Availability & Business Continuity
+In what situation would you want to promote a read replica to its own standalone DB?,A good example is an ecommerce site that wants to open up a shop in a new region. Maybe they want to start a new DB with the same products but will delete all user data so that the new DB only has users from the new region.,High Availability & Business Continuity
+What is a multi-region read replica and why is it useful?,"Improve disaster recover
+Scale reads to users in a region closer to them
+Make it easer to migrate data centers from region to region",High Availability & Business Continuity
+How many read replicas can DB instances have?,Up to 5,High Availability & Business Continuity
+Which two DBs don't support read replicas in different regions?,SQL Server and Oracle,High Availability & Business Continuity
+Is read replica replication synchronous or asynchronous?,Async only,High Availability & Business Continuity
+Can you have read replicas of read replicas?,Yes (probably only for MySQL) and it will further increase latency,High Availability & Business Continuity
+Can DB snapshots and automated backups be taken from read replicas?,NO,High Availability & Business Continuity
+True or False: Read replicas can be created from multi-AZ DBs but cannot be multi-AZ themselves.,TRUE,High Availability & Business Continuity
+Is Multi-AZ replication synchronous or asynchronous?,Synchronous,High Availability & Business Continuity
+"If your app doesn't require transaction support, ACID compliance, joins, or SQL, what should you use instead of RDS?",DynamoDB,High Availability & Business Continuity
+Archive retrieval from Glacier takes how long?,3 or more hours,High Availability & Business Continuity
+What are the four types of Storage Gateways and what file storage protocol do they use?,"1. File Interface (NFS)
+2. Volume Interface (iSCSI based block storage)
+    - Gateway-Cached Volumes
+    - Gateway-Stored Volumes
+3. Tape Interface (iSCSI based virtual tape solution)
+    - Gateway-Virtual Tape Library",High Availability & Business Continuity
+Describe the use of File Gateway.,Basically treats S3 as an NFS / SMB mount point,High Availability & Business Continuity
+Describe the two types of Gateway Volumes and their uses.,"Cached - Cache your most used files on site
+Stored - 1 to 1 copy of everything on site that is backed up on to S3",High Availability & Business Continuity
+Describe the use of Gateway-Virtual Tape Library.,Virtual tape backups for cheap storage on glacier,High Availability & Business Continuity
+What are the maximums for the four storage gateways.,"File Gateway - Unlimited storage. Max file size is 5TB.
+Gateway-Cached Volumes - Each volume 32TB. Max 32 Volumes with 1PB of data (32 x 32)
+Gateway-Stored Volumes - Each volume 16TB. Max 32 Volumes with 512TB of data (32 x 16)
+Gateway-Virtual Tape Library:
+    - Virtual Tape Library (S3) 1500 virtual tapes (1PB)
+    - Virtual Tape Shelf (Glacier) unlimited",High Availability & Business Continuity
+True or False: Storage Gateway can be deployed on premise or as an EC2 instance,TRUE,High Availability & Business Continuity
+True or False: Storage Gateway cannot schedule snapshots,FALSE,High Availability & Business Continuity
+True or False: You can use Storage Gateway with Direct Connect,TRUE,High Availability & Business Continuity
+True or False: Storage Gateway cannot implement bandwidth throttling,FALSE,High Availability & Business Continuity
+"If using storage gateway on premise, what two types of hypervisors can you choose from?",Vmware's ESXi or Hyper-V,High Availability & Business Continuity
+What ports needs opened on your firewalls when using Storage Gateway?,"port 443
+port 80 (activation only)
+port 3260 (internal iSCSI connections)
+port UDP 53 (DNS)",High Availability & Business Continuity
+"True or False: With Storage Gateway, data in transit is secured using SSL and at rest using AES-256",TRUE,High Availability & Business Continuity
+Gateway stored volumes are stored as EBS snapshots in what service?,S3,High Availability & Business Continuity
+True or False: You can use a storage gateway snapshot to create a new Gateway-Stored volume or to create a new EBS volume,TRUE,High Availability & Business Continuity
+True or False: Gateway-Cached snapshots can be used to version your data and rollback when needed,TRUE,High Availability & Business Continuity
+What is the difference in retrieval times for the Virtual Tape Library (S3) vs the Virtual Tape Shelf (Glacier),Instantaneous & 24 hours respectively,High Availability & Business Continuity
+Do you need a storage gateway in each site if using multiple locations?,Yes,High Availability & Business Continuity
+Describe Snowball and the historical service that it mostly replaced.,Snowball can import to S3 or export from S3. Its a physical device that you would use to transfer data to or from AWS. It has mostly replaced Import/Export.,High Availability & Business Continuity
+List the export/import destinations for Import/Export/Snowball,"Exports S3 ONLY! Glacier export requires an export to S3 first.
+Import data into S3, EBS, and Glacier",High Availability & Business Continuity
+"When using Import/Export to export from an S3 bucket with versioning, will all versions be exported? ",NO. Only the most recent versions,
+Which 3 services have automated backups by default?,"- RDS
+- Elasticache (Redis Only)
+- Redshift",High Availability & Business Continuity
+How do you enable automated backups on EC2? What should you watch out for?,"There are no automated backups unless you right your own script.
+Backups will degrade performance
+Stored in S3
+Backups are incremental",High Availability & Business Continuity
+What must you enable for MySQL to have automated backups?,InnoDB,High Availability & Business Continuity
+True or False: There is a performance hit on RDS when doing automated backups while multi AZ is enabled.,False. Having multi AZ enabled prevents the performance hit,High Availability & Business Continuity
+"If you delete an RDS instance, are all automated and manual backups/snapshots deleted?","Automated snapshots are deleted.
+Manual snapshots are not.",High Availability & Business Continuity
+Where are RDS snapshots stored?,S3,High Availability & Business Continuity
+"When you restore a DB on RDS, can you change the engine type?",Yes. For example you can upgrade from SQL standard to SQL enterprise provided you have enough storage.,High Availability & Business Continuity
+"When backing up Elasticache (only available on Redis), how much of the cluster is snapshotted, will it affect performance, and where is the snapshot stored?","The entire cluster is snapshotted
+It will degrade performance
+Stored on S3",High Availability & Business Continuity
+"When backing up Redshift, where are backups stored, how long is the default retention period, and are the backups incremental?","S3
+1 day
+yes, most snapshots use very little storage",High Availability & Business Continuity

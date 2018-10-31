@@ -37,7 +37,6 @@ pickFlashcardsQuestion = [inquirer.List(
     choices=flashcardNames,
 )]
 selectedFlashcards = inquirer.prompt(pickFlashcardsQuestion)['Flashcards']  # returns a dict
-print(selectedFlashcards)
 
 # Read in questions from csv
 # file = csv.DictReader(open('./flashcards/aws-study-notes - Questions.csv'))
