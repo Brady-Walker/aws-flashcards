@@ -59,7 +59,7 @@ Do you need a storage gateway in each site if using multiple locations?,Yes,High
 Describe Snowball and the historical service that it mostly replaced.,Snowball can import to S3 or export from S3. Its a physical device that you would use to transfer data to or from AWS. It has mostly replaced Import/Export.,High Availability & Business Continuity
 List the export/import destinations for Import/Export/Snowball,"Exports S3 ONLY! Glacier export requires an export to S3 first.
 Import data into S3, EBS, and Glacier",High Availability & Business Continuity
-"When using Import/Export to export from an S3 bucket with versioning, will all versions be exported? ",NO. Only the most recent versions,
+"When using Import/Export to export from an S3 bucket with versioning, will all versions be exported? ",NO. Only the most recent versions,High Availability & Business Continuity,
 Which 3 services have automated backups by default?,"- RDS
 - Elasticache (Redis Only)
 - Redshift",High Availability & Business Continuity
@@ -79,3 +79,206 @@ Stored on S3",High Availability & Business Continuity
 "When backing up Redshift, where are backups stored, how long is the default retention period, and are the backups incremental?","S3
 1 day
 yes, most snapshots use very little storage",High Availability & Business Continuity
+What are the two main benefits of consolidated billing?,"- Volume discounts on all your accounts (S3 for example is cheaper the more storage you use)
+- Unused reserved instances for EC2 can be used across connected accounts",Costing & Account Management
+How should you use CloudTrail with AWS Organizations and consolidated billing?,CloudTrail requires setup on a per account and per region basis but can be aggregated in to a single bucket in the paying account,Costing & Account Management
+What are the contract length options for instance provisioning and what is the largest discount method?,"Length options are 1 or 3 years
+Largest discount method is paying all upfront (up to 75% discount)",Costing & Account Management
+Describe the three types of reserved instances,"Standard - normal
+Convertible - able to change instance family and OS
+Scheduled - example: 9am to 11am reservation",Costing & Account Management
+What are the 3 condiitons for modifying a standard reserved instance,"1. Instance type must be in the same family (e.g. M, C, T)
+2. Normalization factors must be equal (1 M2 large = 2 M2 mediums = 4 M2 smalls)
+3. Only for Linux excluding RedHat and SUSE",Costing & Account Management
+"When purchasing reserved instances, should you purchase more, even , or less than you anticipate needing?","More, to allow for growth and greater flexibility when modifying instances (normalization factors and whatnot)",Costing & Account Management
+Can you switch reserved instances between AZ's and/or regions?,AZ's yes but Regions no,Costing & Account Management
+True or False: You can sell reserved instances on the marketplace,TRUE,Costing & Account Management
+Can you reserve RDS instances?,Yes,Costing & Account Management
+Can you reserve RDS instances for use with read replicas?,Yes but they must be within the same region,Costing & Account Management
+"Describe the use cases for reserved, on demand, and spot instances","Reserved - Steady state
+On Demand - Auto scaling and unpredictable workloads
+Spot - Cost effective but rug could be pulled out from under your feet any second",Costing & Account Management
+List the EC2 instance types and their use case,"D - Density
+R - RAM
+M - main choice for general purpose
+C - Compute
+G - Graphics
+I - IOPS
+F - Field Programable Gate Array (customizable hardware)
+T - cheap general purpose
+P - Graphics
+X - Extreme Memory",Costing & Account Management
+Describe the steps to enable cross account access,"1. If you need a custom policy (e.g.: read access to an S3 bucket) create the policy
+2. Create role with cross account access
+3. Apply policy to that role and note the ARN
+4. Grant access to the Role
+5. Switch to the role",Costing & Account Management
+"When submitting reserved instance modification requests involving moving AZ's, how many request must be made?","The number of request will match the number of AZ's being used, even if some instances are already in an AZ.",Costing & Account Management
+"When using consolidated billing, can you set billing alerts at the paying acount level, the individual level, or both?",Both.,Costing & Account Management
+What is the default limit for the number of linked account with consolidated billing?,20,Costing & Account Management
+What is mandatory in a cloudformation template?,Resources,Deployment Management
+Can you create multiple VPC's in one CloudFormation template?,yes,Deployment Management
+"True or False: Chef, Puppet, and Bootstrap Scripts are not supported in CloudFormation.",FALSE,Deployment Management
+What is the syntax for outputting data in a CloudFormation template?,Fn:GetAtt,Deployment Management
+"By default, what happens when CloudFormation encounters an error?",It will automatically roll back but you will be charged for resources provisioned up to that point.,Deployment Management
+"In CloudFormation, what is the syntax to force a stack to wait for another to finish?",WaitCondition,Deployment Management
+Is Route53 fully supported by CloudFormation?,Yes,Deployment Management
+"Which of these services are supported by Elastic Beanstalk: RDS, IAM, VPC",All of them,Deployment Management
+Where is code stored when using Elastic Beanstalk?,S3,Deployment Management
+How do environments and versions work in Elastic Beanstalk?,EB allows you to create multiple environments wherein new deployments are versioned for easy rollbacks.,Deployment Management
+True or False: Elastic Beanstalk replicates the entire git repository each time a change occurs,False. It only replicates the changes.,Deployment Management
+"In OpsWorks, what is the difference between a stack, layer, and recipe?","Stack - The collection of instances necessary for the application
+Layer - The collection of instances at a specific level such as database layer or server layer
+Recipe - The use of Chef recipes in OpsWorks",Deployment Management
+True or False: CloudFormation does not have built-in support for provisioning the application layer,"False. CloudFormation does have support for Chef and Puppet, which allows you to provision your application layer. It also has the ability to utilise the bootstrap scripts for EC2 instance provisioning",Deployment Management
+"True or False: Using CloudFormation, you must ensure that the order of provisioning is set in your script, or the stack will fail to be provisioned","False, CloudFormation will automatically work out the provisioning order",Deployment Management
+"To make sure that certain items are not deleted upon a CloudFormation stack being deleted, you can...",Create a deletion policy for those resources,Deployment Management
+"Can you whiteboard a functional, custom VPC setup with private and public subnets?","Oh lawd, I hope you said yes",Network Design
+"True or False: When using Direct Connect, public services should be accessed using public VIFs and private IP address ranges should be accessed using private VIFs",TRUE,Network Design
+"In the US, how many direct connect connections would you need to connect to all 4 US Regions?",1. Communication between regions goes through AWS' internal lines,Network Design
+Describe the two ways to make Direct Connect redundant,"1. Add a second router and a second direct connect
+2. Set up a site to site VPN to be used in case of a direct connect outage",Network Design
+"True or False: With Direct Connect, Layer 2 connections are NOT supported",TRUE,Network Design
+What is the difference between a Customer Gateway (CGW) and a Virtual Private Gateway?,"When setting up site-to-site VPN, the customer gateway is what is set up on the client side and the virtual private gateway is what's set up on the AWS side.",Network Design
+Enhanced Networking is available using single root I/O virtualization (SR-IOV) which requires what?,HVM Virtualization,Network Design
+True or False: A placement group can span availability zones and subnets provided they are in the same VPC,FALSE: A placement group cannot span availability zones but it can span subnets,Network Design
+True or False: You can move existing instances in to a placement group,FALSE,Network Design
+True or False: You should try to use homogenous instance types when launching placement groups,TRUE,Network Design
+Why should you provision your placement group for peak load?,You may not be able to add instances later,Network Design
+What ports are supported on Elastic Load Balancer?,"EC2-VPC:  1-65535
+EC2-Classic: 25, 80, 443, 465, 587, 1024-65535",Network Design
+True or False: You can assign an Elastic IP address to an Elastic Load Balancer,FALSE,Network Design
+True or False: Elastic Load Balancer supports IPv4 and IPv6,TRUE,Network Design
+"True or False: You can load balance to the ""zone apex"" of your domain",TRUE,Network Design
+How can you get a history of the Elastic Load Balancer API calls?,Enable CloudTrail,Network Design
+"True or False: Unless you have a wildcard certificate, you should use multiple elastic load balancers if you have multiple SSL certificates",TRUE,Network Design
+Describe the two approaches to scaling NATs ,"1. Scale up: increase instance size, maybe one that supports Enhanced Networking
+2. Scale out: Add an additional NAT and subnet and migrate half your workloads to the new subnet",Network Design
+Describe the steps to setup VPC Peering,"1. The owner of a local VPC sends a request to the own of a second VPC to peer
+2. The owner of the second VPC accepts
+3. The owner of the local VPC adds a route to their route table allowing their subnets to route out to the peer VPC
+4. The owner of the peer VPC adds a route to their route table allowing their subnets to route back to the other VPC
+5. Security groups in both VPCs have to both allow traffic",Network Design
+What are the common VPC peering troubleshooting steps?,"Set up:
+1. Are the VPCs in the same region? (This is no longer a current restriction though)
+2. Are the CIDR blocks overlapping?
+After setup:
+3. Check the relevant security groups and NACLs
+4. Check that a route has been created in BOTH VPCs routing tables",Network Design
+Placement groups allow instances in the group to communicate at network speeds of...?,10 Gbps,Network Design
+"For S3, what should you use to optimize GETs and PUTs ?",Parallelization. Multi part upload for PUTs and Range based GETs,Data Storage
+"In what order does S3 store data? Knowing this, how can you maximize performance?","Lexicographical. Introduce randomness to the prefix of your filenames to more evenly distribute their storage, allowing for less bottlenecks when you need to retrieve many files. ",Data Storage
+What three techniques can you use to secure S3?,"- Use bucket policies
+- Use MFA delete
+- Back up your bucket to another S3 bucket owned by a separate account",Data Storage
+"With databases, given the choice between synchronous and asynchronous replication, how would you classify Multi-AZ and Read Replicas?","Multi-AZ is synchronous (think data redundancy)
+Read Replica is async (think convenience)",Data Storage
+True or False: RDS is optimal for new applications with structured data that requires more sophisticated querying and joining capabilities,TRUE,Data Storage
+"Define ACID. If you needed ACID in your database, woudl you go with RDS or DynamoDB?","Atomicity, Consistency, Isolation, Durability
+RDS all the way ",Data Storage
+Pick a data store (RDS/DynamoDB/S3/EC2): Index and query-focused data,DynamoDB,Data Storage
+Pick a data store (RDS/DynamoDB/S3/EC2): Numerous BLOBs,S3,Data Storage
+Pick a data store (RDS/DynamoDB/S3/EC2): Automated Scalability,DynamoDB,Data Storage
+"Pick a data store (RDS/DynamoDB/S3/EC2): Other database platforms such as IBM DB2, Informix, or Sybase",EC2,Data Storage
+Pick a data store (RDS/DynamoDB/S3/EC2): Complete DB control,EC2,Data Storage
+Pick a data store (RDS/DynamoDB/S3/EC2): Pre-written application tied to a traditional relational database,RDS,Data Storage
+Pick a data store (RDS/DynamoDB/S3/EC2): Large data with low I/O rate,S3,Data Storage
+Describe the differences between the two types of Active Directory (AD) Services,"AD Connector:
+- Connects to existing AD environments
+- Supports MFA
+
+Simple AD:
+- MFA not supported
+- Cannot add additional AD servers
+- No trust relationships
+- Cannot transfer FSMO Roles",Security
+"Describe the steps taken to set up STS, including the roles of the App, an Identity Broker, LDAP, and AWS STS.","1. Develop an Identity Broker to communicate with LDAP and AWS STS
+2. Identity Broker always authenticates with LDAP first, then AWS STS
+3. Application then gets temporary access to AWS resources",Security
+True or False: CloudTrail can be used across multiple accounts in a single S3 bucket,TRUE,Security
+True or False: CloudWatch does not support cross account subscriptions,FALSE,Security
+Describe the difference between CloudWatch and CloudTrail,"CloudWatch: Resource Logs
+CloudTrail: Audits and tracing API calls",Security
+True or False: CloudWatch can monitor CloudTrail,TRUE,Security
+Name 3 destinations to which you can send your log files,"1. CloudWatch
+2. S3
+3. Third Party (AlertLogic, SumoLogic, Splunk, etc)",Security
+"By default, how long will CloudWatch store your logs?",Indefinitely,Security
+What is a scenario in which you'd want to store logs in S3 instead of CloudWatch?,If you wanted your logs to be shareable,Security
+How long is CloudWatch alarm history?,14 days,Security
+Is Cloud Hardware Security Module (Cloud HSM) single tenanted?,Yes. Only you will be using the physical device,Security
+What is Cloud Hardware Security Module's (Cloud HSM) relationship to a VPC?,It is used within a VPC,Security
+Can you use VPC peering to connect to a Cloud Hardware Security Module (Cloud HSM)?,Yes. You could peer to a VPC that has an HSM in it.,Security
+"True or False: You can use EBS volume encryption, S3 object encryption, and key management with Cloud Hardware Security Module (Cloud HSM) out of the box",False. You can use those features but you must custom script them for now.,Security
+Is Cloud Hardware Security Module (Cloud HSM) fault tolerant by default?,"No. You would need to build a cluster. If your only HSM fails, you will lose your keys.",Security
+Can Cloud Hardware Security Module (Cloud HSM) integrate with RDS and Redshift?,yes,Security
+How can you monitor Cloud Hardware Security Module (Cloud HSM)?,Syslog,Security
+What are 6 technologies/services that you can use to mitigate a DDoS attack,"1. CloudFront - Geo Restriction/Blocking & Origin Access Identity (Restrict access to S3 bucket so it can only be accesed by CloudFront
+2. Route53 - Alias Record Sets (redirect traffic to some stack that can handle DDoS) & Private DNS (manage internal DNS names so they're not on the public internet)
+3. ELB's - Spread that DDoS traffic around
+4. WAFs - Web Application Firewall can Application Layer attacks
+5. Autoscaling - Same as ELB
+6. CloudWatch - Set off alarms so you can put your DDoS mitigation plan in to action",Security
+Define IDS and IPS and their differences,"IDS - Intrusion Detection System - Inspects all inbound and outbound network activity and identifies suspicous patterns
+IPS - Intrusion Prevention System - Same as above but it will attempt to stop the threat",Security
+How are IDS/IPS usually configured in a stack?,You would generally have an IDS/IPS application in a public subnet and some kind of agent installed on each EC2 instance to feed the app data. The IDS/IPS app would then send logs to a Security Operation Center or S3,Security
+"In CloudFront, what are the two distribution types?",Web and RTMP,Scalability & Elasticity
+"In CloudFront, what can you use Geo Restriction for?",Whitelisting and Blacklisting countries,Scalability & Elasticity
+"CloudFront supports SSL. If you wish to use a custom URL over the default URL, what two options do you have and what are the tradeoffs?","Dedicated IP Custom SSL - Expensive but will support older browsers
+SNI Custom SSL - will only support newer browsers but is more affordable",Scalability & Elasticity
+"CloudFront supports GET, HEAD, PUT, PATCH, DELETE and OPTIONS. Which of these are not cached, but proxied back to the origin server?","POST, PUT, DELETE, PATCH",Scalability & Elasticity
+True or False: CNAMES are not supported by CloudFront,FALSE,Scalability & Elasticity
+"If you wanted to remove potentially harmful material on CloudFront, what would you do and what would the consequences of that action be?",Send an Invalidation Request through the API. It will cost extra to do this.,Scalability & Elasticity
+How can you support Zone Apex records in Route53?,Alias Records,Scalability & Elasticity
+Is dynamic content supported in CloudFront?,Yes you can customize and personalize content using HTTP cookies,Scalability & Elasticity
+"Memcached or Redis?
+- Simplest model possible
+- Large nodes with multiple cores or threads
+- Scale out, adding and removing nodes as demand changes
+- Shard your data across multiple nodes
+- Cache objects such as a database",Memcached,Scalability & Elasticity
+"Memcached or Redis?
+- Complex data types like strings, hashes, lists, sets
+- Sort or Rank in-memory data-sets
+- Persistence of your key store
+- replicate your data from the primary to one or more read replicas
+- automatic failover if primary node fails
+- pub sub capabilities
+- backup and restore capabilities",Redis,Scalability & Elasticity
+"If you were asked to stream large amounts of data that needs processed quickly, what service would you choose?",Kinesis,Scalability & Elasticity
+"Describe these components of Kinesis:
+- Data producers
+- Shards
+- Records
+- Data Consumers","- Data producers: Other servers or clients that produce data like an ec2 instance scraping twitter
+- Shards: The unit of measurement of data when using Kinesis. 1 shard = 1MB/sec input., 2MB/sec output, and 1000 PUTs/sec
+- Records: Unit of data being put in a stream. Contains a sequence number (unique id), a partitiion key (which shard its going to), and data itself (blob)
+- Data Consumers - Servers/clients consuming data from kinesis streams",Scalability & Elasticity
+"By default, how long is data stored on Kinesis? What is the max time?",24 hours is default. Up to 7 days.,Scalability & Elasticity
+True or False: Kinesis is a persistent data store,FALSE,Scalability & Elasticity
+SNS can be extended to mobile apps using SNS Mobile Push. What are some of the push notification technologies supported?,"Amazon Device Messaging (ADM)
+Apple Push Notification Server (APNS)
+Baidu Cloud Push (Baidu)
+Google Cloud Messaging for Android (GCM)
+Microsoft Push Notification Service for Windows Phone (MPNS)
+Windows Push Notification Services (WNS)",Scalability & Elasticity
+"Memcached or Redis?
+- Data persistence",Redis,Scalability & Elasticity
+How many CNAMEs can a CloudFront distribution have?,100,Scalability & Elasticity
+vCenter has a plug-in that enables you to migrate VMware VMs to EC2 and manage AWS resources from within vCenter. Name 4 use cases for this technology.,"1. Migrate VMware VMs to EC2
+2. Reach new Geographies from vCenter
+3. Self-service AWS portal from within vCenter
+4. Leverage vCenter experience while getting started with AWS",Cloud Migration & Hybrid
+"Storage Gateway, in addition to its storage capabilities, can be used to migrate existing VMs to AWS. What is the primary thing to remember in this process?",Make sure the VM snapshots are consistent. Do this by taking your VM offline before doing the snapshot.,Cloud Migration & Hybrid
+AWS Data Pipeline has primarily been replaced by what other AWS technology?,Lambda,Cloud Migration & Hybrid
+What is AWS Data Pipeline and what are some of its basic features?,"A service that helps you reliably process and move data between different AWS compute and storage services
+- Can be scheduled
+- Can be integrated with on-premise environments
+- Will provision and terminate resources as and when needed",Cloud Migration & Hybrid
+What are the 4 main components of a pipeline in AWS Data Pipeline?,"- Datanode (destination)
+- Activity (like a process on an EC2)
+- Precondition (does this s3 path/dynamo table exist)
+- Schedule",Cloud Migration & Hybrid
+What is the CIDR block range?,/16 to /28,Cloud Migration & Hybrid
+How many IP addresses does AWS reserve per CIDR block?,5. The first 4 and the last 1.,Cloud Migration & Hybrid
+How can you use BGP to migrate a VPN connection to a Direct Connect connection?,Place both connections in the same BGP. Set the VPN to have a higher cost in the BGP so that the connection prefers Direct Connect.,Cloud Migration & Hybrid
