@@ -1,0 +1,88 @@
+Question,Answer,Tags
+"What do these benefits describe?
+- Build faster
+- Descrease code review time
+- Automatic
+- Faster fault isolation
+- additional deployment features",CI/CD,SDLC Automation
+What is AWS CodeBuild?,Build server like CircleCI,SDLC Automation
+What is AWS CodeDeploy?,A deployement service that automates deployment to Amazon resources,SDLC Automation
+What is AWS CodePipeline?,SDLC pipeline that can use things like CodeBuild and CodeCommit to compose stages that perform different actions,SDLC Automation
+Can CodePipeline implement a manual approval step?,Yes,SDLC Automation
+What is an artifact in the SDLC?,An output like a compiled binary or zipped static bundle that will be passed between stages,SDLC Automation
+"Describe the differences between the following deployment strategies:
+- Single Target
+- All-at-Once
+- Minimum in-service
+- Rolling Deployment
+- Blue Green
+- Canary","- Single target deploys to one target with downtime during installation
+- All-at-once is just like single but with multiple targets
+- Min. in service means you define X, the lowest number of targets that should be available during installations
+- Rolling would mean that you define X, the number of targets that should be updated at a time
+- Blue Green spins up an entire copy of the targets for you to test and approve before switching traffic
+- Canary lets you route traffic as weighted percentages and slowly increase the proportion going to the new installation",SDLC Automation
+"In CloudFormation, what does Fn:Transform do?",It specifies a macro to perform custom processing on part of a stack template,Configuration Management and Infrastructure as Code
+"How does one overcome the Cloudformation limit of 200 resources, 60 outputs, and 60 parameters?",Use nested stacks,Configuration Management and Infrastructure as Code
+What are the 3 cloudformation resource detention policies and which is the default?,Delete is the default. The others are retain and snapshot.,Configuration Management and Infrastructure as Code
+What is AWS Config?,AWS config archives the current state of your resources and snapshots as it goes. Kinda like the wayback machine for your aws account.,Configuration Management and Infrastructure as Code
+What is AWS Managed Services?,Basically big corporate companies can pay for AWS to have people manage their ops for them so they dont have to touch aws,Configuration Management and Infrastructure as Code
+What is Lambda step functions?,"A service that allows you to orchestrate your lambda functions, providing a graphical view and a reliable way to step through functions",Configuration Management and Infrastructure as Code
+What is OpsWorks Stacks?,"Manages your app on AWS and on-prem
+Design layers of your app like lb, frontend, backend, db
+Supports autoscaling and scheduled scaling
+Its somewhere in between elastic beanstalk and cloudformation when it comes to configuration",Configuration Management and Infrastructure as Code
+"In cloudwatch, how does data flow through the data retention policy?","Data is aggregated and rolled up as it passes these thresholds
+
+Data points < 60 seconds - 3 hours (high res)
+~= 60 seconds (1 minute) - 15 days
+~= 300 seconds (5 minutes) - 63 days
+~= 3600 seconds (1 hour) - 445 (15 months)",Monitoring and Logging
+TRUE or FALSE: Cloudwatch supports custom metrics,TRUE,Monitoring and Logging
+"What are events, targets, and rules in Cloudwatch?","Events are changes in the AWS environment
+Targets are the resources that process events
+Rules match events and route to targets",Monitoring and Logging
+How can you leverage cloudwatch logs on an EC2 server?,Use the aws cli to automatically push logs,Monitoring and Logging
+What is AWS xray?,"A service that collects data about requests your application serves.
+Provides tools to view filter and gain insight in to that data
+Can help identify issues and optimization opportunities",Monitoring and Logging
+What is AWS Service Catalog?,"Lets orgs manage catalogs of products that are approved for use on AWS
+You can create and distribute application stacks called products which can be grouped in to portfolios",Policies and Standards
+What is AWS Trusted Advisor?,A real time service that provides guidance and checks for best practices on your AWS resources,Policies and Standards
+What is AWS Systems Manager?,"Basically if you wanted to manage a bunch of resources as a group, like a bunch of EC2 servers, you could patch them at the same time, create system images, run commands to reduce costs, manage scaling, etc.",Policies and Standards
+What is AWS Organizations?,It allows you to logically separate resources in to separate accounts. You can roll up billing to the primary account but it lets you more easily track costs.,Policies and Standards
+What is AWS Secrets Manager?,Encrypts secrets at rest. You fetch them with the secrets manager console/api/cli/sdk. Kinda like dotenv as a service. It can also do automatic rotation.,Policies and Standards
+What is Amazon Macie?,"A security service that uses machine learning to automatically discover, classify, and protect sensitive data on AWS. Currently only protects data in S3.",Policies and Standards
+What is AWS Certificates Manager?,"Easily provision, manage, and deploy SSL/TLS certificates.",Policies and Standards
+What is AWS GuardDuty?,"Intelligent threat detection. Looking for things like unusual api calls, unauthorized deployments, and compromised instances. It uses threat intelligence feeds, machine learning, and cloudwatch events.",Incident and Event Response
+What is Amazon Inspector?,Automated vulnerability assessment for EC2 instances,Incident and Event Response
+What is Kinesis Data Analytics?,Analyze streaming data like logs or sensor data. Able to response in real time and query with SQL.,Incident and Event Response
+What is Kinesis Data Firehose?,Deliver streaming data to a destination. No apps. Just configure producer and destination. Like a pipeline. It can also transform data.,Incident and Event Response
+What is Kinesis Data Streams?,Collect streaming data. Massively scalable. captures gigabytes per second. ,Incident and Event Response
+What is Kinesis Video Streams?,Collect streaming video data. Its like Kinesis Data Streams but for videos.,Incident and Event Response
+What is AWS Single Sign-On and its benefits?,"Integrate with AWS Organizations
+Create/manage users and groups
+SSO access to cloud applications
+Use existing corporate identities
+Its highly available and fault tolerant","High Availability, Fault Tolerance, and Disast Recovery"
+What is CloudFront?,CDN,"High Availability, Fault Tolerance, and Disast Recovery"
+TRUE or FALSE: EC2 supports autoscaling and lifecycle hook features,TRUE,"High Availability, Fault Tolerance, and Disast Recovery"
+Describe the difference between scaling RDS vertically and horizontally,"Vertical would be increasing instance size
+Horizontal would be read replicas","High Availability, Fault Tolerance, and Disast Recovery"
+What is Amazon Aurora?,A MySQL and PostreSQL compatible database built for the cloud (its got a lot of built in faul tolerance and such),"High Availability, Fault Tolerance, and Disast Recovery"
+"In Amazon Aurora, what are the two types of read replicas?","Aurora Replicas - sares volume with primary instance. Low performance impact and be provide a failover with no data loss
+MySQL Replicas - Primary instance data replayed as transaction. High performance impact on primary. Can provide a failover with minutes of data loss.","High Availability, Fault Tolerance, and Disast Recovery"
+Describe the difference between Primary and Sort keys in DyanmoDB,Primary would be something like user ID. Sort key is for secondary indexes like Address or Type.,"High Availability, Fault Tolerance, and Disast Recovery"
+What are DynamoDB streams?,"You can trigger lambda events on Dynamo when items are created, updated, or deleted.","High Availability, Fault Tolerance, and Disast Recovery"
+Why is tagging useful in AWS?,It helps you track resources for billing or other purposes,Other Services
+"For EFS (elastic file system), what are the two performance modes and storage classes?","Performance - General purpose default and Max I/O
+Storage - Standard default and Infrequently Accessed (EFS IA)",Other Services
+What two stores are available on Elasticache?,Redis and Memcached,Other Services
+What are the benefits of Elasticache?,In-memory data stores are very fast,Other Services
+What is the main factor that affects retrieval price on AWS Glacier?,The speed of the retrieval,Other Services
+What is AWS Direct Connect?,It allows you to set up a direct connection to AWS without using the internet.,Other Services
+What are Lambda dead letter queues?,Lambdas are retried twice before the event is discarded. Dead letter queues allow you to debug your lambdas. You can send the failed events to SNS or SQS.,Other Services
+What is CloudSearch?,A managed service that provides a search solution for your website or application. You can provide it with your data and it will help configure the search system.,Other Services
+What is Elasticsearch Service?,"A managed service that provides elasticsearch. Commonly used in the ELK stack (elasticsearch, logstash, and kibana) which Elasticsearch service can provision for you.",Other Services
+What is DynamoDB Accelerator? (DAX),Fully managed in-memory cache for Dynamodb.,Other Services
+What is AWS Server Migration Service?,SMS Automates the migration of your on-premise VMware vSphere or Microsoft Hyper-V virtual machines to the cloud. It will recreate them as AMIs.,Other Services
